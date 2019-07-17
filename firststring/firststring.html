@@ -1,0 +1,43 @@
+<!Doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>First String </title>
+<link rel="stylesheet" type="text/css" href="styles.css"/>
+</head>
+<body>
+<script type="text/javascript">
+function firstNonRepeatedCharacter(string) {
+   var counts = {};
+   var i, minCode = 999999, maxCode = -1;
+   for (i = 0; i < string.length; ++i) {
+        var letter = string.charAt(i);
+        var letterCode = string.charCodeAt(i);
+       if (letterCode < minCode) {
+           minCode = letterCode;
+       }
+       if (letterCode > maxCode) {
+           maxCode = letterCode;
+       }
+        var count = counts[letterCode];
+        if (count) {
+           count.count = count.count + 1;
+        }
+        else {
+            counts[letterCode] = { letter: letter, count: 1, index: i };
+        }
+   }
+
+    var smallestIndex = string.length;
+    for (i = minCode; i <= maxCode; ++i) {
+       var count = counts[i];
+       if (count && count.count === 1 && count.index < smallestIndex) {
+          smallestIndex = count.index;
+       }
+   }
+
+    return smallestIndex < string.length ? string.charAt(smallestIndex) : '';
+}
+</script>
+</body>
+</html>
